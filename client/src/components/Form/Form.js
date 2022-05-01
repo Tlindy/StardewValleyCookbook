@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import useStyles from "./styles";
-import { createRecipe } from "../../actions/recipes";
+import { createRecipe, updateRecipe } from "../../actions/recipes";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
     const [recipeData, setRecipeData] = useState({
         name: "",
         description: "",
@@ -19,23 +20,48 @@ const Form = () => {
         selectedFile: "",
         favorite: false
     })
+    const recipe = useSelector((state) => currentId ? state.recipes.find((r) => r._id === currentId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(recipe) {
+            setRecipeData(recipe);
+        }
+    }, [recipe])
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        dispatch(createRecipe(recipeData));
+        if(currentId) {
+            dispatch(updateRecipe(currentId, recipeData));
+        } else {
+            dispatch(createRecipe(recipeData));
+        }
+
+        clear();
     }
 
     const clear = () => {
-
+        setCurrentId(null);
+        setRecipeData({
+            name: "",
+            description: "",
+            ingredients: "",
+            energy: "",
+            health: "",
+            buffs: "",
+            sellPrice: "",
+            source: "",
+            selectedFile: "",
+            favorite: false
+        })
     }
 
     return (
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant="h6">Adding a Recipe</Typography>
+                <Typography variant="h6">{currentId ? "Editing" : "Adding"} a Recipe</Typography>
                 <TextField 
                     name="name"
                     variant="outlined"

@@ -6,7 +6,7 @@ import Recipe from "./Recipe/Recipe";
 
 import useStyles from "./styles";
 
-const Recipes = () => {
+const Recipes = ({ setCurrentId }) => {
     const recipes = useSelector((state) => state.recipes);
     const classes = useStyles();
 
@@ -17,7 +17,7 @@ const Recipes = () => {
             <Grid className={classes.container} container alignItems="stretch" space={3}>
                 {recipes.map((recipe) => (
                     <Grid key={recipe._id} item xs={12} sm={6}>
-                        <Recipe recipe={recipe} />
+                        <Recipe recipe={recipe} setCurrentId={setCurrentId} />
                     </Grid>
                 ))}
             </Grid>

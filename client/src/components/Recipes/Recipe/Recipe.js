@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 import useStyles from "./styles";
 
-const Recipe = ({ recipe }) => {
+const Recipe = ({ recipe, setCurrentId }) => {
     const classes = useStyles();
 
     return (
@@ -11,6 +12,14 @@ const Recipe = ({ recipe }) => {
             <CardMedia className={classes.media} image={recipe.selectedFile} title={recipe.name} />
             <div className={classes.overlay}>
                 <Typography variant="h6">{recipe.name}</Typography>
+            </div>
+            <div className={classes.overlay2}>
+                <Button 
+                    style={{color: "white"}} 
+                    size="small" 
+                    onClick={() => setCurrentId(recipe._id)}>
+                        <MoreHorizIcon fontSize="default" />
+                </Button>
             </div>
             <div className={classes.details}>
                 <Typography variant="body2" color="textSecondary">{recipe.description}</Typography>
