@@ -84,7 +84,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     label="Ingredients"
                     fullWidth
                     value={recipeData.ingredients}
-                    onChange={(e) => setRecipeData({ ...recipeData, ingredients: e.target.value })}
+                    onChange={(e) => setRecipeData({ ...recipeData, ingredients: e.target.value.split(",") })}
                 />
                 <TextField 
                     name="energy"
@@ -124,7 +124,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     label="Source"
                     fullWidth
                     value={recipeData.source}
-                    onChange={(e) => setRecipeData({ ...recipeData, source: e.target.value })}
+                    onChange={(e) => setRecipeData({ ...recipeData, source: e.target.value.split(",") })}
                 />
                 <div className={classes.fileInput}>
                     <FileBase
