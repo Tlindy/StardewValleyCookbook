@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container } from "@material-ui/core";
+import { GoogleLogin } from "react-google-login";
+import { gapi } from "gapi-script";
+import dotenv from "dotenv";
+
+import Icon from "./icon";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "./styles";
 import Input from "./Input";
+
+dotenv.config();
 
 const Auth = () => {
 
@@ -25,6 +32,22 @@ const Auth = () => {
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
         handleShowPassword(false);
+    };
+
+    gapi.load("client:auth2", () => {
+        gapi.client.init({
+          clientId: process.env.REACT_APP_CLIENT_ID,
+          plugin_name: "Stardew Valley Cookbook",
+        });
+      });
+
+    const googleSuccess = async (res) => {
+        console.log(res);
+    };
+
+    const googleFailure = (error) => {
+        console.log(error);
+        console.log("Google Sign In was unsuccessful. Try again later");
     };
 
   return (
@@ -84,10 +107,30 @@ const Auth = () => {
                     fullWidth
                     variant="contained"
                     color="primary"
-                    className={classes.submit}>
-                        {isSignup ? "Sign Up" : "Sign In"}
+                    className={classes.submit}
+                >
+                    {isSignup ? "Sign Up" : "Sign In"}
                 </Button>
-                <Grid container justify="flex-end">
+                <GoogleLogin 
+                    clientId={process.env.REACT_APP_CLIENT_ID}
+                    render={(renderProps) => (
+                        <Button 
+                            className={classes.googleButton}
+                            color="primary"
+                            fullWidth
+                            onClick={renderProps.onClick}
+                            disabled={renderProps.disabled}
+                            startIcon={<Icon />}
+                            variant="contained"
+                        >
+                            Google Sign In
+                        </Button>
+                    )}
+                    onSuccess={googleSuccess}
+                    onFailure={googleFailure}
+                    cookiePolicy="single_host_origin"
+                />
+                <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Button onClick={switchMode}>
                             { isSignup ? "Already have an account? Sign In"
