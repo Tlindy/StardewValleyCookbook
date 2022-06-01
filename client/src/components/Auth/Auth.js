@@ -3,7 +3,8 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from "@material-ui
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import dotenv from "dotenv";
-
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Icon from "./icon";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "./styles";
@@ -16,6 +17,8 @@ const Auth = () => {
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleShowPassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)
@@ -42,7 +45,16 @@ const Auth = () => {
       });
 
     const googleSuccess = async (res) => {
-        console.log(res);
+        const result = res?.profileObj;
+        const token = res?.tokenId;
+
+        try {
+            dispatch({ type: "AUTH", data: { result, token } });
+
+            history.push("/");
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const googleFailure = (error) => {
