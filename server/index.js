@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import recipeRoutes from "./routes/recipes.js";
+import userRoutes from "./routes/recipes.js";
 
 const app = express();
 dotenv.config();
@@ -14,8 +15,8 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use("/recipes", recipeRoutes);
+app.use("/user", userRoutes);
 
-const CONNECTION_URL = "mongodb+srv://tlindy:Buttons2009@cluster0.feo9f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
