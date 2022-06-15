@@ -1,9 +1,11 @@
-import { FETCH_ALL_RECIPES, CREATE_RECIPE, UPDATE_RECIPE, DELETE_RECIPE } from "../constants/actionTypes";
+import { FETCH_ALL_RECIPES, FETCH_RECIPES_BY_SEARCH, CREATE_RECIPE, UPDATE_RECIPE, DELETE_RECIPE } from "../constants/actionTypes";
 
 
 export default (recipes = [], action) => {
     switch (action.type) {
         case FETCH_ALL_RECIPES:
+            return action.payload;
+        case FETCH_RECIPES_BY_SEARCH:
             return action.payload;
         case CREATE_RECIPE:
             return [...recipes, action.payload];

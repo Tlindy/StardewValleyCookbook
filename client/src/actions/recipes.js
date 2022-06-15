@@ -1,4 +1,4 @@
-import { FETCH_ALL_RECIPES, CREATE_RECIPE, UPDATE_RECIPE, DELETE_RECIPE } from "../constants/actionTypes";
+import { FETCH_ALL_RECIPES, FETCH_RECIPES_BY_SEARCH, CREATE_RECIPE, UPDATE_RECIPE, DELETE_RECIPE } from "../constants/actionTypes";
 import * as api from "../api";
 
 export const getRecipes = () => async (dispatch) => {
@@ -15,7 +15,7 @@ export const getRecipesBySearch = (searchQuery) => async (dispatch) => {
     try {
         const { data: { data } } = await api.fetchRecipesBySearch(searchQuery);
 
-        console.log(data);
+        dispatch({ type: FETCH_RECIPES_BY_SEARCH, payload: data });
     } catch (error) {
         console.log(error);
     }

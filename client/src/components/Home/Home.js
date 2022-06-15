@@ -37,6 +37,9 @@ const Home = () => {
                 search, 
                 ingredients: ingredients.map(ingredient => ingredient.toLowerCase()).join(",") 
             }));
+            history.push(
+                `/recipes/search?searchQuery=${search || "none"}&ingredients=${ingredients.join(",")}`
+            );
         } else {
             history.push("/");
         }
