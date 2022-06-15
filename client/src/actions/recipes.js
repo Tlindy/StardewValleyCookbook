@@ -9,7 +9,17 @@ export const getRecipes = () => async (dispatch) => {
     } catch (error ) {
         console.log(error);
     }
-}
+};
+
+export const getRecipesBySearch = (searchQuery) => async (dispatch) => {
+    try {
+        const { data: { data } } = await api.fetchRecipesBySearch(searchQuery);
+
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export const createRecipe = (recipe) => async (dispatch) => {
     try {
@@ -19,7 +29,7 @@ export const createRecipe = (recipe) => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 export const updateRecipe = (id, recipe) => async (dispatch) => {
     try {
@@ -29,7 +39,7 @@ export const updateRecipe = (id, recipe) => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 export const deleteRecipe = (id) => async (dispatch) => {
     try {
@@ -39,4 +49,4 @@ export const deleteRecipe = (id) => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
-}
+};

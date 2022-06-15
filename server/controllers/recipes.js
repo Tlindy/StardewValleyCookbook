@@ -11,6 +11,22 @@ export const getRecipes = async (req, res) => {
     }
 }
 
+export const getRecipesBySearch = async (req, res) => {
+    const { searchQuery, ingredients } = req.query
+
+    try {
+        const name = new RegExp(searchQuery, "i");
+
+        const recipes = await Recipe.find({ 
+            $or: [ { name }, { ingredients: { $in: ingredients.split(",") } }] 
+        });
+
+        res.json({ data: recipes });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const createRecipe = async (req, res) => {
     const recipe = req.body;
 

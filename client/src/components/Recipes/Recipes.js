@@ -10,8 +10,6 @@ const Recipes = ({ setCurrentId }) => {
     const recipes = useSelector((state) => state.recipes);
     const classes = useStyles();
 
-    console.log(recipes);
-
     return (
         !recipes.length ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" space={3}>

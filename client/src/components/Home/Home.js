@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 
-import { getRecipes } from "../../actions/recipes";
+import { getRecipes, getRecipesBySearch } from "../../actions/recipes";
 import Pagination from "../Pagination";
 import Recipes from "../Recipes/Recipes";
 import Form from "../Form/Form";
@@ -32,20 +32,25 @@ const Home = () => {
     }, [currentId, dispatch]);
 
     const searchRecipe = () => {
-        if(search.trim()) {
-            // dispatch -> fetch search post
+        if(search.trim() || ingredients) {
+            dispatch(getRecipesBySearch({ 
+                search, 
+                ingredients: ingredients.map(ingredient => ingredient.toLowerCase()).join(",") 
+            }));
         } else {
             history.push("/");
         }
     };
 
     const handleKeyPress = (e) => {
-        if(e.keyCode === 13) {
+        if(e.key === "Enter") {
             searchRecipe();
         }
     };
 
-    const handleAdd = (ingredient) => setIngredients([...ingredients, ingredient]);
+    const handleAdd = (ingredient) => {
+        setIngredients([...ingredients, ingredient]);
+    };
 
     const handleDelete = (ingredientToDelete) => {
         setIngredients(ingredients.filter((ingredient) => ingredient !== ingredientToDelete));
@@ -80,7 +85,8 @@ const Home = () => {
                                 value={ingredients}
                                 onAdd={handleAdd}
                                 onDelete={handleDelete}
-                                label="Search by Ingredients"
+                                newChipKeys={["Enter", " "]}
+                                label="Search by Ingredients (enter or space to add)"
                                 variant="outlined"
                             />
                             <Button 
