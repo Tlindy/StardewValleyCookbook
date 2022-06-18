@@ -7,29 +7,34 @@ import { useDispatch } from "react-redux";
 
 import { deleteRecipe } from "../../../actions/recipes";
 
+/*
+    <div className={classes.overlay2}>
+        <Button 
+            style={{color: "white"}} 
+            size="small" 
+            onClick={() => setCurrentId(recipe._id)}>
+                <MoreHorizIcon fontSize="medium" />
+        </Button>
+    </div>
+*/
+
 const Recipe = ({ recipe, setCurrentId }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
     return (
-        <Card className={classes.card}>
-            <CardMedia className={classes.media} image={recipe.selectedFile} title={recipe.name} />
+        <Card className={classes.card} variant="outlined">
             <div className={classes.overlay}>
-                <Typography variant="h6">{recipe.name}</Typography>
+                <Typography variant="h5">{recipe.name}</Typography>
             </div>
-            <div className={classes.overlay2}>
-                <Button 
-                    style={{color: "white"}} 
-                    size="small" 
-                    onClick={() => setCurrentId(recipe._id)}>
-                        <MoreHorizIcon fontSize="medium" />
-                </Button>
-            </div>
+            <CardMedia component="img" image={recipe.selectedFile} title={recipe.name} />
             <div className={classes.details}>
                 <Typography variant="body2" color="textSecondary">{recipe.description}</Typography>
             </div>
             <CardContent>
-                <Typography className={classes.title} variant="h5" gutterBottom>{recipe.ingredients}</Typography>
+                <Typography className={classes.title} variant="h5" gutterBottom>
+                    {recipe.ingredients.map((ingredient) => `+${ingredient} `)}
+                </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" onClick={() => dispatch(deleteRecipe(recipe._id))}>
