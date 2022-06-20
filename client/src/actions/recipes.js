@@ -16,6 +16,7 @@ export const getRecipesBySearch = (searchQuery) => async (dispatch) => {
         const { data: { data } } = await api.fetchRecipesBySearch(searchQuery);
 
         dispatch({ type: FETCH_RECIPES_BY_SEARCH, payload: data });
+        console.log(data);
     } catch (error) {
         console.log(error);
     }

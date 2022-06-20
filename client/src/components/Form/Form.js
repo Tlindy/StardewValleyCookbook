@@ -108,7 +108,7 @@ const Form = ({ currentId, setCurrentId }) => {
                     label="Buffs"
                     fullWidth
                     value={recipeData.buffs}
-                    onChange={(e) => setRecipeData({ ...recipeData, buffs: e.target.value })}
+                    onChange={(e) => setRecipeData({ ...recipeData, buffs: e.target.value.split(",") })}
                 />
                 <TextField 
                     name="sellPrice"

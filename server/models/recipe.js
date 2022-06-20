@@ -6,6 +6,7 @@ const recipeSchema = mongoose.Schema({
     ingredients: [String],
     energy: String,
     health: String,
+    buffs: [String],
     sellPrice: String,
     source:[String],
     selectedFile: String,

@@ -8,14 +8,7 @@ import { useDispatch } from "react-redux";
 import { deleteRecipe } from "../../../actions/recipes";
 
 /*
-    <div className={classes.overlay2}>
-        <Button 
-            style={{color: "white"}} 
-            size="small" 
-            onClick={() => setCurrentId(recipe._id)}>
-                <MoreHorizIcon fontSize="medium" />
-        </Button>
-    </div>
+    
 */
 
 const Recipe = ({ recipe, setCurrentId }) => {
@@ -26,6 +19,14 @@ const Recipe = ({ recipe, setCurrentId }) => {
         <Card className={classes.card} variant="outlined">
             <div className={classes.overlay}>
                 <Typography variant="h5">{recipe.name}</Typography>
+            </div>
+            <div className={classes.overlay2}>
+                <Button 
+                    style={{color: "grey"}} 
+                    size="small" 
+                    onClick={() => setCurrentId(recipe._id)}>
+                        <MoreHorizIcon fontSize="medium" />
+                </Button>
             </div>
             <CardMedia component="img" image={recipe.selectedFile} title={recipe.name} />
             <div className={classes.details}>

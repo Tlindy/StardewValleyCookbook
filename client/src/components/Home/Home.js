@@ -88,8 +88,7 @@ const Home = () => {
                                 value={ingredients}
                                 onAdd={handleAdd}
                                 onDelete={handleDelete}
-                                newChipKeys={["Enter", " "]}
-                                label="Search by Ingredients (enter or space to add)"
+                                label="Search by Ingredients (enter to add)"
                                 variant="outlined"
                             />
                             <Button 
