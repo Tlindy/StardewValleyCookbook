@@ -10,7 +10,7 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const fetchRecipes = () => API.get("/recipes");
+export const fetchRecipes = (page) => API.get(`/recipes?page=${page}`);
 export const fetchRecipesBySearch = (searchQuery) => API.get(
     `/recipes/search?searchQuery=${searchQuery.search || "none"}&ingredients=${searchQuery.ingredients}`
     );

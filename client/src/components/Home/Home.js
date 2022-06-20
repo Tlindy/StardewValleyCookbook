@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 
-import { getRecipes, getRecipesBySearch } from "../../actions/recipes";
+import { getRecipesBySearch } from "../../actions/recipes";
 import Pagination from "../Pagination";
 import Recipes from "../Recipes/Recipes";
 import Form from "../Form/Form";
@@ -25,11 +25,6 @@ const Home = () => {
     const searchQuery = query.get("searchQuery");
     const [search, setSearch] = useState("");
     const [ingredients, setIngredients] = useState([]);
-
-
-    useEffect(() => {
-        dispatch(getRecipes());
-    }, [currentId, dispatch]);
 
     const searchRecipe = () => {
         if(search.trim() || ingredients) {
@@ -71,6 +66,9 @@ const Home = () => {
                 >
                     <Grid item xs={12} sm={6} md={9}>
                         <Recipes setCurrentId={setCurrentId} />
+                        <Paper elevation={6} style={{ margin: "20px 0" }}>
+                            <Pagination page={page} />
+                        </Paper>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
                         <AppBar className={classes.appBarSearch} position="static" color="inherit">
@@ -101,9 +99,6 @@ const Home = () => {
                             </Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        <Paper elevation={6}>
-                            <Pagination />
-                        </Paper>
                     </Grid>
                 </Grid>
             </Container>

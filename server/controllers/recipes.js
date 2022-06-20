@@ -2,10 +2,18 @@ import mongoose from "mongoose";
 import Recipe from "../models/recipe.js";
 
 export const getRecipes = async (req, res) => {
-    try {
-        const recipes = await Recipe.find();
+    const { page } = req.query;
 
-        res.status(200).json(recipes);
+    try {
+        const LIMIT = 8;
+        const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+        const total =  await Recipe.countDocuments({});
+
+        const recipes = await Recipe.find().limit(LIMIT).skip(startIndex);
+
+        res.status(200).json(
+            { data: recipes, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) }
+        );
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

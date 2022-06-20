@@ -1,9 +1,11 @@
 import { FETCH_ALL_RECIPES, FETCH_RECIPES_BY_SEARCH, CREATE_RECIPE, UPDATE_RECIPE, DELETE_RECIPE } from "../constants/actionTypes";
 import * as api from "../api";
 
-export const getRecipes = () => async (dispatch) => {
+export const getRecipes = (page) => async (dispatch) => {
     try{
-        const { data } = await api.fetchRecipes();
+        const { data } = await api.fetchRecipes(page);
+
+        console.log(data);
 
         dispatch({ type: FETCH_ALL_RECIPES, payload: data });
     } catch (error ) {
