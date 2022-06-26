@@ -14,7 +14,7 @@ const Recipes = ({ setCurrentId }) => {
         !recipes?.length ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {recipes.map((recipe) => (
-                    <Grid key={recipe._id} item xs={12} s={6} md={4} lg={3}>
+                    <Grid key={recipe._id} item xs={12} s={6} md={4} lg={3} xl={2}>
                         <Recipe recipe={recipe} setCurrentId={setCurrentId} />
                     </Grid>
                 ))}
