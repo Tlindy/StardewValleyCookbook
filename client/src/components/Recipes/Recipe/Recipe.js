@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core";
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, List, ListItem, ListItemText } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import DeleteIcon from "@material-ui/icons/Delete";
 import useStyles from "./styles";
@@ -16,7 +16,7 @@ const Recipe = ({ recipe, setCurrentId }) => {
     const dispatch = useDispatch();
 
     return (
-        <Card className={classes.card} variant="outlined">
+        <Card className={classes.card}  raised elevation={6}>
             <div className={classes.overlay}>
                 <Typography variant="h5">{recipe.name}</Typography>
             </div>
@@ -33,9 +33,13 @@ const Recipe = ({ recipe, setCurrentId }) => {
                 <Typography variant="body2" color="textSecondary">{recipe.description}</Typography>
             </div>
             <CardContent>
-                <Typography className={classes.title} variant="h5" gutterBottom>
-                    {recipe.ingredients.map((ingredient) => `+${ingredient} `)}
-                </Typography>
+                <List className={classes.title} variant="h5" gutterBottom>
+                    {recipe.ingredients.map((ingredient) => (
+                        <ListItem key={ingredient} className={classes.list}>
+                            <ListItemText primary={`+ ${ingredient}`} />
+                        </ListItem>
+                    ))}
+                </List>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" onClick={() => dispatch(deleteRecipe(recipe._id))}>
